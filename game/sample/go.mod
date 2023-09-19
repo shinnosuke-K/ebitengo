@@ -1,4 +1,4 @@
-module github.com/shinnosuke-K/ebitengo
+module github.com/shinnosuke-K/ebitengo/game/sample
 
 go 1.21.1
 
