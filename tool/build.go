@@ -39,7 +39,7 @@ func build(args []string) error {
 	}
 
 	// Run go build
-	cmd := exec.Command("go", "build", "-o", "game.wasm", "./game/reversi")
+	cmd := exec.Command("go", "build", "-o", "game.wasm", "./game/pulsar")
 	cmd.Env = append(os.Environ(), "GOOS=js", "GOARCH=wasm")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
