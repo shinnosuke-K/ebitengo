@@ -39,12 +39,14 @@ func build(args []string) error {
 	}
 
 	// Run go build
-	cmd := exec.Command("go", "build", "-o", "game.wasm", "./game/pulsar")
-	cmd.Env = append(os.Environ(), "GOOS=js", "GOARCH=wasm")
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("go build: %w", err)
+	for _, game := range []string{"reversi", "pulsar"} {
+		cmd := exec.Command("go", "build", "-o", fmt.Sprintf("%s.wasm", game), fmt.Sprintf("./game/%s", game))
+		cmd.Env = append(os.Environ(), "GOOS=js", "GOARCH=wasm")
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		if err := cmd.Run(); err != nil {
+			return fmt.Errorf("go build: %w", err)
+		}
 	}
 
 	// After building, send a request to '_notify' to automatically reload the browser
