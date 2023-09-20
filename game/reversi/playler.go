@@ -93,7 +93,7 @@ func (p *ManualPlayer) DrawDisplayName(screen *ebiten.Image) {
 		x = 650
 		y = 200
 	}
-	text.Draw(screen, p.name, basicfont.Face7x13, x, y, color.White)
+	text.Draw(screen, p.name, basicfont.Face7x13, x, y, p.cursorColor)
 }
 
 // DrawPieceCount はプレイヤーの石の数を描画する
