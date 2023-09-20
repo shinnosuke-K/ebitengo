@@ -22,6 +22,7 @@ func build(args []string) error {
 	}
 
 	addr := flag.String("http", defaultAddr, "HTTP service address")
+	//buildPackage := flag.String("package", ".", "specify the built package")
 	flag.Parse(args)
 
 	if flag.NArg() > 0 {
@@ -38,7 +39,7 @@ func build(args []string) error {
 	}
 
 	// Run go build
-	cmd := exec.Command("go", "build", "-o", "game.wasm")
+	cmd := exec.Command("go", "build", "-o", "game.wasm", "./game/reversi")
 	cmd.Env = append(os.Environ(), "GOOS=js", "GOARCH=wasm")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
