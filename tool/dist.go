@@ -16,8 +16,10 @@ const distRoot = "dist"
 
 var distFiles = []string{
 	"index.html",
-	"game.html",
-	"game.wasm",
+	"reversi.html",
+	"reversi.wasm",
+	"pulsar.html",
+	"pulsar.wasm",
 	"wasm_exec.js",
 }
 
