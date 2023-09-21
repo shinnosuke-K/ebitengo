@@ -1,6 +1,6 @@
 ## Command `tool`
 
-(English / [日本語](https://github.com/eihigh/wasmgame/blob/main/tool/README_ja.md))
+([English](https://github.com/eihigh/wasmgame/blob/main/tool/README.md) / 日本語)
 
 ```
 $ go run ./tool
@@ -18,32 +18,32 @@ tips:
         To modify the build process, edit build.go.
 ```
 
-Command `tool` contains all the useful features for browser game development.
+ブラウザゲーム開発に便利な機能を一つにまとめたコマンドです。
 
-All commands are intended to be run from the project root.
+どのコマンドも、`go run ./tool build` のようにプロジェクトルートから実行されることを想定しています。
 
-## Usage
+## 使い方
 
 ### build
-Build in WebAssembly (wasm).
+wasm としてビルドします。
 
-If you build while the server is running, it will work with the server to automatically reload the browser. (If this does not work, try reloading once manually.)
+serve を実行中にビルドした場合は、サーバーと連携して自動的にブラウザをリロードさせます。（うまく動作しない場合は、手動で一度リロードしてみてください）
 
 ### serve
-Starts the development server. By default, it serves at `http://localhost:8080`. The URL can be changed with the `-http` flag.
+開発用サーバーを立ち上げます。デフォルトでは `http://localhost:8080` でサービスします。URLは `-http` フラグで変更することが可能です。
 
-The default is to automatically launch the browser if possible, but this can be suppressed with the `-no-open` flag if it is not needed.
+また、デフォルトでは可能ならば自動でブラウザが立ち上がりますが、不要な場合は `-no-open` フラグを指定して抑制します。
 
 ### dist
-Copies the distribution to the `dist` directory.
+配布物を `dist` ディレクトリにコピーします。
 
-The `-zip` flag creates a directory and archives it as `dist.zip`, useful for uploading to sites like itch.io.
+`-zip` フラグを指定すると、ディレクトリを作成した後、それを `dist.zip` としてアーカイブします。itch.io など投稿サイトにアップロードするのに便利です。
 
 ### update
-Updates the dependencies listed in `go.mod`.
+`go.mod` に記載されている依存関係をアップデートします。
 
 ## Tips
 
-To modify the contents of the distribution, edit the `distFiles` in `tool/dist.go`.
+配布物の内容を修正するには、`tool/dist.go` の `distFiles` を編集してください。
 
-To modify other settings or behavior, edit the .go files in `tool/` directly.
+その他、設定や挙動をいじるには、`tool/` 内の .go ファイルを直接編集してください。
