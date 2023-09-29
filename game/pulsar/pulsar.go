@@ -17,7 +17,6 @@ type Pulsar struct {
 	elapsedTime   int
 	player        *Player
 	gameOver      bool
-	gameClear     bool
 }
 
 const (
@@ -41,7 +40,6 @@ func newPulsar() *Pulsar {
 		elapsedTime:   0,
 		player:        newPlayer(),
 		gameOver:      false,
-		gameClear:     false,
 	}
 }
 
@@ -52,7 +50,7 @@ func (p *Pulsar) WindowSize() (int, int) { return screenWidth, screenHeight }
 func (p *Pulsar) Layout(_, _ int) (int, int) { return screenWidth, screenHeight }
 
 func (p *Pulsar) Update() error {
-	if p.gameClear || p.gameOver {
+	if p.gameOver {
 		if ebiten.IsKeyPressed(ebiten.KeyEnter) {
 			p.Restart()
 		}
