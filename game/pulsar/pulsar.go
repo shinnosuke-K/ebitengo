@@ -66,7 +66,6 @@ func (p *Pulsar) Update() error {
 	p.elapsedFrames++
 	if p.elapsedFrames%60 == 0 {
 		p.objects = append(p.objects, newObject(), newObject())
-		p.elapsedFrames = 0
 		p.elapsedTime++
 	}
 
