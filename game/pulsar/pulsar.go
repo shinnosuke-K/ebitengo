@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"sync"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2/text"
@@ -14,9 +15,12 @@ import (
 type Pulsar struct {
 	objects       []*object
 	elapsedFrames int
-	elapsedTime   int
 	player        *Player
 	gameOver      bool
+
+	tiker  *time.Ticker
+	onceDo sync.Once
+	score  uint64
 }
 
 const (
@@ -37,9 +41,9 @@ func newPulsar() *Pulsar {
 			return objects
 		}(),
 		elapsedFrames: 0,
-		elapsedTime:   0,
 		player:        newPlayer(),
 		gameOver:      false,
+		tiker:         time.NewTicker(time.Second),
 	}
 }
 
@@ -50,6 +54,13 @@ func (p *Pulsar) WindowSize() (int, int) { return screenWidth, screenHeight }
 func (p *Pulsar) Layout(_, _ int) (int, int) { return screenWidth, screenHeight }
 
 func (p *Pulsar) Update() error {
+	p.onceDo.Do(func() {
+		go func() {
+			<-p.tiker.C
+			p.score++
+		}()
+	})
+
 	if p.gameOver {
 		if ebiten.IsKeyPressed(ebiten.KeyEnter) {
 			p.Restart()
@@ -66,7 +77,7 @@ func (p *Pulsar) Update() error {
 	p.elapsedFrames++
 	if p.elapsedFrames%60 == 0 {
 		p.objects = append(p.objects, newObject(), newObject())
-		p.elapsedTime++
+		p.elapsedFrames = 0
 	}
 
 	// 衝突判定
@@ -103,7 +114,6 @@ func (p *Pulsar) Restart() {
 	p.player = newPlayer()
 	p.objects = nil
 	p.elapsedFrames = 0
-	p.elapsedTime = 0
 	for i := 0; i < numObjects; i++ {
 		p.objects = append(p.objects, newObject())
 	}
