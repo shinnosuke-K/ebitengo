@@ -103,6 +103,7 @@ func (p *Pulsar) Restart() {
 	p.gameOver = false
 	p.player = newPlayer()
 	p.objects = nil
+	p.elapsedFrames = 0
 	p.elapsedTime = 0
 	for i := 0; i < numObjects; i++ {
 		p.objects = append(p.objects, newObject())
