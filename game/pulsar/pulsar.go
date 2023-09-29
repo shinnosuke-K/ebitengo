@@ -51,13 +51,10 @@ func (p *Pulsar) WindowSize() (int, int) { return screenWidth, screenHeight }
 func (p *Pulsar) Layout(_, _ int) (int, int) { return screenWidth, screenHeight }
 
 func (p *Pulsar) Update() error {
-	switch {
-	case p.gameOver:
+	if p.gameClear || p.gameOver {
 		if ebiten.IsKeyPressed(ebiten.KeyEnter) {
 			p.Restart()
 		}
-		fallthrough
-	case p.gameClear:
 		return nil
 	}
 
@@ -114,6 +111,7 @@ func (p *Pulsar) DrawText(screen *ebiten.Image, str string, x, y int) {
 
 func (p *Pulsar) Restart() {
 	p.gameOver = false
+	p.gameClear = false
 	p.player = newPlayer()
 	p.objects = nil
 	for i := 0; i < numObjects; i++ {
