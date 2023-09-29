@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"time"
 
@@ -16,7 +17,6 @@ type Pulsar struct {
 	elapsedTime   int
 	player        *Player
 	gameOver      bool
-	gameClear     bool
 }
 
 const (
@@ -40,7 +40,6 @@ func newPulsar() *Pulsar {
 		elapsedTime:   0,
 		player:        newPlayer(),
 		gameOver:      false,
-		gameClear:     false,
 	}
 }
 
@@ -51,7 +50,7 @@ func (p *Pulsar) WindowSize() (int, int) { return screenWidth, screenHeight }
 func (p *Pulsar) Layout(_, _ int) (int, int) { return screenWidth, screenHeight }
 
 func (p *Pulsar) Update() error {
-	if p.gameClear || p.gameOver {
+	if p.gameOver {
 		if ebiten.IsKeyPressed(ebiten.KeyEnter) {
 			p.Restart()
 		}
@@ -70,10 +69,6 @@ func (p *Pulsar) Update() error {
 		p.elapsedFrames = 0
 		p.elapsedTime++
 	}
-	if p.elapsedTime == gameTime {
-		p.gameClear = true
-		return nil
-	}
 
 	// 衝突判定
 	for _, obj := range p.objects {
@@ -85,13 +80,8 @@ func (p *Pulsar) Update() error {
 }
 
 func (p *Pulsar) Draw(screen *ebiten.Image) {
-	switch {
-	case p.gameClear:
-		p.DrawText(screen, "Game Clear!", 320, 170)
-		p.DrawText(screen, "Press Enter to restart", 230, 200)
-		return
-	case p.gameOver:
-		p.DrawText(screen, "Game Over", 320, 170)
+	if p.gameOver {
+		p.DrawText(screen, fmt.Sprintf("Score %d", p.elapsedFrames), 320, 170)
 		p.DrawText(screen, "Press Enter to restart", 230, 200)
 		return
 	}
@@ -111,9 +101,9 @@ func (p *Pulsar) DrawText(screen *ebiten.Image, str string, x, y int) {
 
 func (p *Pulsar) Restart() {
 	p.gameOver = false
-	p.gameClear = false
 	p.player = newPlayer()
 	p.objects = nil
+	p.elapsedFrames = 0
 	p.elapsedTime = 0
 	for i := 0; i < numObjects; i++ {
 		p.objects = append(p.objects, newObject())
