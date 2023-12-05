@@ -22,7 +22,6 @@ func build(args []string) error {
 	}
 
 	addr := flag.String("http", defaultAddr, "HTTP service address")
-	//buildPackage := flag.String("package", ".", "specify the built package")
 	flag.Parse(args)
 
 	if flag.NArg() > 0 {
