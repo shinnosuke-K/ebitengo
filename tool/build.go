@@ -33,7 +33,7 @@ func build(args []string) error {
 	// Copy $GOROOT/misc/wasm/wasm_exec.js
 	goroot := findGOROOT()
 	src := filepath.Join(goroot, "misc", "wasm", "wasm_exec.js")
-	dst := "wasm_exec.js"
+	dst := "asset/html/wasm_exec.js"
 	if err := copyFile(dst, src); err != nil {
 		return fmt.Errorf("copy wasm_exec.js: %w", err)
 	}
