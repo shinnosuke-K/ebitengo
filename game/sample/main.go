@@ -23,16 +23,16 @@ func (g *game) Update() error {
 
 func (g *game) Draw(screen *ebiten.Image) {
 	screen.Fill(color.RGBA{0, 64, 64, 255})
-	ebitenutil.DebugPrint(screen, "Hello, wasmgame!\nThe content of asset/sample.json is: "+string(g.sampleJSON))
+	ebitenutil.DebugPrint(screen, "Hello, wasmgame!\nThe content of sample.json is: "+string(g.sampleJSON))
 }
 
-func (g *game) Layout(w, h int) (int, int) {
+func (g *game) Layout(_, _ int) (int, int) {
 	return 640, 360 // Screen resolution (not window size)
 }
 
 func main() {
 	g := &game{}
-	g.sampleJSON, _ = readFile("asset/sample.json")
+	g.sampleJSON, _ = readFile("sample.json")
 	ebiten.SetWindowSize(1280, 720) // has no effect on browser
 	if err := ebiten.RunGame(g); err != nil {
 		panic(err)
