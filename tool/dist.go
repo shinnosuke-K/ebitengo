@@ -15,12 +15,12 @@ import (
 const distRoot = "dist"
 
 var distFiles = []string{
-	"index.html",
-	"reversi.html",
-	"reversi.wasm",
-	"pulsar.html",
-	"pulsar.wasm",
-	"wasm_exec.js",
+	"asset/html/index.html",
+	"asset/html/reversi.html",
+	"asset/html/reversi.wasm",
+	"asset/html/pulsar.html",
+	"asset/html/pulsar.wasm",
+	"asset/html/wasm_exec.js",
 }
 
 var distDirs = []string{

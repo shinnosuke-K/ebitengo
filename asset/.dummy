@@ -1,3 +1,0 @@
-Files beginning with a dot are considered hidden and excluded from the distribution.
-
-If you wish to include the file as part of the distribution, please add the file path directly to distFiles, not distDirs.

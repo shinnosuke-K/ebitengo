@@ -22,7 +22,6 @@ func build(args []string) error {
 	}
 
 	addr := flag.String("http", defaultAddr, "HTTP service address")
-	//buildPackage := flag.String("package", ".", "specify the built package")
 	flag.Parse(args)
 
 	if flag.NArg() > 0 {
@@ -33,14 +32,14 @@ func build(args []string) error {
 	// Copy $GOROOT/misc/wasm/wasm_exec.js
 	goroot := findGOROOT()
 	src := filepath.Join(goroot, "misc", "wasm", "wasm_exec.js")
-	dst := "wasm_exec.js"
+	dst := "asset/html/wasm_exec.js"
 	if err := copyFile(dst, src); err != nil {
 		return fmt.Errorf("copy wasm_exec.js: %w", err)
 	}
 
 	// Run go build
-	for _, game := range []string{"reversi", "pulsar"} {
-		cmd := exec.Command("go", "build", "-o", fmt.Sprintf("%s.wasm", game), fmt.Sprintf("./game/%s", game))
+	for _, game := range []string{"sample", "reversi", "pulsar"} {
+		cmd := exec.Command("go", "build", "-o", fmt.Sprintf("asset/html/%s.wasm", game), fmt.Sprintf("./game/%s", game))
 		cmd.Env = append(os.Environ(), "GOOS=js", "GOARCH=wasm")
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
