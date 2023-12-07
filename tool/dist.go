@@ -15,7 +15,7 @@ import (
 const distRoot = "dist"
 
 var distFiles = []string{
-	"asset/html/index.html",
+	"index.html",
 	"asset/html/reversi.html",
 	"asset/html/reversi.wasm",
 	"asset/html/pulsar.html",
